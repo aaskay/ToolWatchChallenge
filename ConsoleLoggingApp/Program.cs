@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TWLogger;
 
-namespace ConsoleLoggingApp
+namespace TestHarness
 {
     class Program
     {
