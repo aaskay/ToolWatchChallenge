@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TWLogger;
+using System.Configuration;
 
 namespace TestHarness
 {
@@ -11,7 +12,11 @@ namespace TestHarness
     {
         static void Main(string[] args)
         {
-            MyLogger mylogger = new MyLogger(new FileLogger());
+            string logPath = ConfigurationManager.AppSettings["LogDirectory"];
+            bool logToEventViewer = Convert.ToBoolean(ConfigurationManager.AppSettings["LogToEventViewer"]);
+
+            MyLogger mylogger = new MyLogger(new FileLogger(logPath, logToEventViewer));
+
             mylogger.TryToLogInfo("info");
             mylogger.TryToLogError("error");
             mylogger.TryToLogDebug("debug");

@@ -22,8 +22,6 @@ namespace TWLogger.Tests
         [TestMethod()]
         public void DebugTest()
         {
-            var loggerTest = new FileLogger();
-
             Assert.Fail();
         }
 

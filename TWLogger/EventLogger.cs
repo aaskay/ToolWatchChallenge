@@ -9,7 +9,7 @@ namespace TWLogger
 {
     public class EventLogger
     {
-        public void LogToEventViewer(string message, LogLevel level, int source)
+        public void LogToEventViewer(string message, LogLevel level)
         {
             EventLogEntryType eventLogEntryType;
             switch (level)
@@ -33,7 +33,7 @@ namespace TWLogger
             using (EventLog eventLog = new EventLog("Application"))
             {
                 eventLog.Source = "Application";
-                eventLog.WriteEntry(message, eventLogEntryType, source);
+                eventLog.WriteEntry(message, eventLogEntryType);
             }
         }        
     }

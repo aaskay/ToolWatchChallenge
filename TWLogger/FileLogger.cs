@@ -4,14 +4,18 @@ using System.IO;
 namespace TWLogger
 {
     public class FileLogger : ILogger
-    {        
+    {
+        public string baseLogFilePath { get; private set; }
+        public bool logToEventViewer { get; private set; }
+
+        public FileLogger(string logPath, bool logToEvent)
+        {
+            baseLogFilePath = logPath;
+            logToEventViewer = logToEvent;
+        }
         private void Log(LogLevel level,string message)
         {
             string path;
-
-            //TODO set path in config
-
-            string baseLogFilePath = @"C:\Errorlogs";
 
             if (!(Directory.Exists(baseLogFilePath)))
             {
@@ -47,10 +51,12 @@ namespace TWLogger
                 streamWriter.Close();
             }
 
-            //TODO set event viewer option in config
-
-            EventLogger evtLogger = new EventLogger();
-            evtLogger.LogToEventViewer(message, level, 1);
+            if(logToEventViewer)
+            {
+                EventLogger evtLogger = new EventLogger();
+                evtLogger.LogToEventViewer(message, level);
+            }
+            
         }
 
         public void Debug(string message)
