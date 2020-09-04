@@ -6,15 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Remoting.Messaging;
+using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 
 namespace TWLogger.Tests
 {
     [TestClass()]
     public class FileLoggerTests
     {
+        IFileSystem fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
+        {
+            { @"c:\ErrorLogs\Errorlog.txt", new MockFileData("Testing is meh.") },
+        });
+
         [TestMethod()]
         public void DebugTest()
         {
+            var loggerTest = new FileLogger();
+
             Assert.Fail();
         }
 
@@ -38,6 +47,12 @@ namespace TWLogger.Tests
 
         [TestMethod()]
         public void WarningTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void ShouldCreateFileIfDoesNotExist()
         {
             Assert.Fail();
         }
