@@ -9,6 +9,8 @@ namespace TWLogger
         {
             string path;
 
+            //TODO set path in config
+
             string baseLogFilePath = @"C:\Errorlogs";
 
             if (!(Directory.Exists(baseLogFilePath)))
@@ -39,9 +41,16 @@ namespace TWLogger
             }
             using (StreamWriter streamWriter = new StreamWriter(path, true))
             {
+                streamWriter.WriteLine(DateTime.Now);
                 streamWriter.WriteLine(message);
+                streamWriter.WriteLine("----------------------------------------");
                 streamWriter.Close();
             }
+
+            //TODO set event viewer option in config
+
+            EventLogger evtLogger = new EventLogger();
+            evtLogger.LogToEventViewer(message, level, 1);
         }
 
         public void Debug(string message)
